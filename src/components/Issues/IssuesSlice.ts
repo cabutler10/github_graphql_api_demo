@@ -8,7 +8,7 @@ export interface IIssue {
 
 export interface IssuesState {
   data: IIssue[] | null;
-  selectedId?: string;
+  selectedId?: number;
   status: "idle" | "loading" | "failed";
 }
 
@@ -25,7 +25,7 @@ export const issuesSlice = createSlice({
     setIssues: (state, action: PayloadAction<IIssue[]>) => {
       state.data = action.payload;
     },
-    setSelectedId: (state, action: PayloadAction<string>) => {
+    setSelectedId: (state, action: PayloadAction<number>) => {
       state.selectedId = action.payload;
     },
     clearSelectedId: (state) => {

@@ -1,60 +1,43 @@
 import * as React from "react";
-import { Box, Skeleton, Autocomplete, TextField } from "@mui/material";
-import { gql, useQuery } from "@apollo/client";
+import { Box, Button, TextField } from "@mui/material";
 
 import IssueTable from "./IssueTable";
 
-const GET_ISSUES = gql`
-  query GetIssues {
-    repository(owner: "facebook", name: "react") {
-      issues(last: 20, states: CLOSED) {
-        edges {
-          node {
-            title
-            url
-            id
-            comments {
-              totalCount
-            }
-          }
-        }
-      }
-    }
-  }
-`;
+export default function IssuesSection() {
+  const [value, setValue] = React.useState<string>("");
+  const [searchValue, setSearchValue] = React.useState<string>("");
 
-export default function IssuesPage() {
-  const { loading, error, data } = useQuery(GET_ISSUES);
+  const handleClick = () => {
+    setSearchValue(value);
+  };
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>{`Error! ${error.message}`}</p>;
   return (
     <>
-      <Autocomplete
-        disablePortal
-        id="combo-box-demo"
-        options={data}
-        sx={{ width: "100%", mb: 2 }}
-        renderInput={(params) => (
-          <TextField {...params} label="Search issues..." />
-        )}
-      />
+      <Box
+        component="form"
+        sx={{
+          mb: 2,
+          display: "flex",
+          alignItems: "center",
+        }}
+        noValidate
+        autoComplete="off"
+      >
+        <TextField
+          sx={{ flexGrow: 1 }}
+          id="outlined-controlled"
+          label="Search Issues"
+          value={value}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+            setValue(event.target.value);
+          }}
+        />
+        <Button variant="contained" sx={{ ml: 2 }} onClick={handleClick}>
+          Search
+        </Button>
+      </Box>
       <Box sx={{ display: "flex", justifyContent: "center" }}>
-        {data && !loading ? (
-          <IssueTable rows={data.repository.issues.edges} />
-        ) : (
-          <>
-            {[0, 1, 2, 3, 4, 5].map((elem) => (
-              <Skeleton
-                key={elem}
-                variant="rectangular"
-                width="100%"
-                height={100}
-                sx={{ mb: 3 }}
-              />
-            ))}
-          </>
-        )}
+        <IssueTable searchValue={searchValue} />
       </Box>
     </>
   );
