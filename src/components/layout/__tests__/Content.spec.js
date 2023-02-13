@@ -1,43 +1,17 @@
 import { render, screen } from "@testing-library/react";
-import { act } from "react-dom/test-utils";
-import { unmountComponentAtNode } from "react-dom";
+import { Provider } from "react-redux";
+import { MockedProvider } from "@apollo/client/testing";
+import { store } from "../../../app/store";
 import Content from "../Content";
 
-let container = null;
-beforeEach(() => {
-  container = document.createElement("div");
-  document.body.appendChild(container);
-});
-
-afterEach(() => {
-  unmountComponentAtNode(container);
-  container.remove();
-  container = null;
-});
-
 test("renders component", () => {
-  render(<Content />);
-  const textElement = screen.getByText(/Keyword Search Trends/i);
-  expect(textElement).toBeInTheDocument();
-});
-
-it("renders user data", async () => {
-  const fakeData = {
-    country: "Germany",
-    date: "2021-01-21",
-    keywords: [],
-  };
-  jest.spyOn(global, "fetch").mockImplementation(() =>
-    Promise.resolve({
-      json: () => Promise.resolve(fakeData),
-    })
+  render(
+    <Provider store={store}>
+      <MockedProvider>
+        <Content />
+      </MockedProvider>
+    </Provider>
   );
-
-  await act(async () => {
-    render(<Content />);
-  });
-  const textElement = screen.getByText(/winners/i);
+  const textElement = screen.getByText(/React Repository/i);
   expect(textElement).toBeInTheDocument();
-
-  global.fetch.mockRestore();
 });

@@ -4,7 +4,7 @@ import { Typography, Box, Button, Container } from "@mui/material";
 import IssuesSection from "../Issues/IssuesSection";
 import CommentsSection from "../Comment/CommentsSection";
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
-import { selectSelectedId, clearSelectedId } from "../Issues/IssuesSlice";
+import { selectSelectedId, clearSelectedId } from "../Issues/issuesSlice";
 
 export default function Content() {
   const dispatch = useAppDispatch();

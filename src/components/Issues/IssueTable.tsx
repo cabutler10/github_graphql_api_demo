@@ -15,9 +15,9 @@ import {
 import { gql, useQuery } from "@apollo/client";
 
 import { useAppDispatch } from "../../app/hooks";
-import { setSelectedId } from "./IssuesSlice";
+import { setSelectedId } from "./issuesSlice";
 
-const GET_ISSUES = gql`
+export const GET_ISSUES = gql`
   query GetIssues($value: String!) {
     search(query: $value, type: ISSUE, first: 10) {
       pageInfo {
@@ -72,7 +72,10 @@ export default function IssuesTable(props: IssuesTableProps) {
 
   if (loading)
     return (
-      <Box sx={{ display: "flex", flexDirection: "column", width: "100%" }}>
+      <Box
+        sx={{ display: "flex", flexDirection: "column", width: "100%" }}
+        data-testid="loading"
+      >
         {[0, 1, 2, 3, 4, 5].map((elem) => (
           <Skeleton
             key={elem}
@@ -111,7 +114,7 @@ export default function IssuesTable(props: IssuesTableProps) {
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
-              <TableCell>Title</TableCell>
+              <TableCell>Search Results</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -134,7 +137,7 @@ export default function IssuesTable(props: IssuesTableProps) {
                         }}
                       >
                         <Typography>{row.title}</Typography>
-                        <Typography>{`Comments: ${row.comments.totalCount}`}</Typography>
+                        <Typography>{`Comments: ${row.comments?.totalCount}`}</Typography>
                       </Box>
                     </TableCell>
                   </TableRow>

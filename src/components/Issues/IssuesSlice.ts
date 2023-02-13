@@ -22,9 +22,9 @@ export const issuesSlice = createSlice({
   name: "issues",
   initialState,
   reducers: {
-    setIssues: (state, action: PayloadAction<IIssue[]>) => {
-      state.data = action.payload;
-    },
+    // setIssues: (state, action: PayloadAction<IIssue[]>) => {
+    //   state.data = action.payload;
+    // },
     setSelectedId: (state, action: PayloadAction<number>) => {
       state.selectedId = action.payload;
     },
@@ -34,8 +34,7 @@ export const issuesSlice = createSlice({
   },
 });
 
-export const { setIssues, setSelectedId, clearSelectedId } =
-  issuesSlice.actions;
+export const { setSelectedId, clearSelectedId } = issuesSlice.actions;
 
 export const selectIssues = (state: RootState) => state.issues.data;
 export const selectSelectedId = (state: RootState) => state.issues.selectedId;

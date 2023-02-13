@@ -4,7 +4,7 @@ import { gql, useQuery } from "@apollo/client";
 
 import Comment from "./Comment";
 import { useAppSelector } from "../../app/hooks";
-import { selectSelectedId } from "../Issues/IssuesSlice";
+import { selectSelectedId } from "../Issues/issuesSlice";
 
 interface AuthorProps {
   avatarUrl: string;
