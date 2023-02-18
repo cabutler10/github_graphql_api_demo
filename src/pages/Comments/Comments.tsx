@@ -2,23 +2,31 @@ import * as React from "react";
 import { Box, Typography } from "@mui/material";
 import { gql, useQuery } from "@apollo/client";
 
-import Comment from "./Comment";
+import Comment from "../../components/Comment/Comment";
 import { useAppSelector } from "../../app/hooks";
 import { selectSelectedId } from "../../store/issuesSlice";
+import { IComment } from "../../interfaces/comments.interface";
 
-interface AuthorProps {
-  avatarUrl: string;
+interface ICommentNode {
+  node: IComment;
 }
 
-interface CommentQueryNodeProps {
+interface IComments {
+  edges: ICommentNode[];
+}
+
+interface IIssue {
   id: string;
-  bodyHTML: string;
-  createdAt: string;
-  author: AuthorProps;
+  title: string;
+  comments: IComments;
+}
+
+interface IRepository {
+  issue: IIssue;
 }
 
 interface CommentQueryProps {
-  node: CommentQueryNodeProps;
+  repository: IRepository;
 }
 
 const GET_COMMENTS = gql`
@@ -46,27 +54,33 @@ const GET_COMMENTS = gql`
 
 export default function Comments() {
   const selectedId = useAppSelector(selectSelectedId);
-  const { loading, error, data } = useQuery(GET_COMMENTS, {
+  const { loading, error, data } = useQuery<CommentQueryProps>(GET_COMMENTS, {
     variables: {
       number: selectedId,
     },
   });
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>{`Error! ${error.message}`}</p>;
+  if (loading) return <Typography>Loading...</Typography>;
+  if (error) return <Typography>{`Error! ${error.message}`}</Typography>;
 
   return (
     <Box>
-      <Typography>{data.repository.issue.title}</Typography>
-      <Typography>{data.repository.issue.id}</Typography>
-      {data.repository.issue.comments.edges.map((elem: CommentQueryProps) => (
-        <Comment
-          text={elem.node.bodyHTML}
-          key={elem.node.id}
-          authorImage={elem.node.author.avatarUrl}
-          createdAt={elem.node.createdAt}
-        />
-      ))}
+      {data ? (
+        <>
+          <Typography>{data.repository.issue.title}</Typography>
+          <Typography>{data.repository.issue.id}</Typography>
+          {data.repository.issue.comments.edges.map((elem) => (
+            <Comment
+              text={elem.node.bodyHTML}
+              key={elem.node.id}
+              authorImage={elem.node.author.avatarUrl}
+              createdAt={elem.node.createdAt}
+            />
+          ))}
+        </>
+      ) : (
+        <Typography>No Results Found</Typography>
+      )}
     </Box>
   );
 }

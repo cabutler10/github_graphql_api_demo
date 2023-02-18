@@ -1,17 +1,13 @@
 import * as React from "react";
 import { Avatar, Box, Typography } from "@mui/material";
 
-interface CommentProps {
+interface Props {
   text: string;
   authorImage: string;
   createdAt: string;
 }
 
-export default function Comment({
-  text,
-  authorImage,
-  createdAt,
-}: CommentProps) {
+export default function Comment({ text, authorImage, createdAt }: Props) {
   return (
     <Box sx={{ display: "flex", mb: 4 }}>
       <Avatar src={authorImage} />
