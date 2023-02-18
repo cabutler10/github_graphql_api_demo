@@ -4,7 +4,7 @@ import { gql, useQuery } from "@apollo/client";
 
 import Comment from "./Comment";
 import { useAppSelector } from "../../app/hooks";
-import { selectSelectedId } from "../Issues/issuesSlice";
+import { selectSelectedId } from "../../store/issuesSlice";
 
 interface AuthorProps {
   avatarUrl: string;
@@ -44,7 +44,7 @@ const GET_COMMENTS = gql`
   }
 `;
 
-export default function CommentsSection() {
+export default function Comments() {
   const selectedId = useAppSelector(selectSelectedId);
   const { loading, error, data } = useQuery(GET_COMMENTS, {
     variables: {

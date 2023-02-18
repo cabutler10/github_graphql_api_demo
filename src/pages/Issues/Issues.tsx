@@ -1,9 +1,9 @@
 import * as React from "react";
 import { Box, Button, TextField } from "@mui/material";
 
-import IssueTable from "./IssueTable";
+import IssueTable from "./IssuesTable";
 
-export default function IssuesSection() {
+export default function Issues() {
   const [value, setValue] = React.useState<string>("");
   const [searchValue, setSearchValue] = React.useState<string>("");
 

@@ -1,36 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  createHttpLink,
-} from "@apollo/client";
-import { setContext } from "@apollo/client/link/context";
+import { ApolloProvider } from "@apollo/client";
 import { Provider } from "react-redux";
 import { store } from "./app/store";
+import { client } from "./app/apolloAuth";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "./index.css";
-
-const httpLink = createHttpLink({
-  uri: "https://api.github.com/graphql",
-});
-
-const authLink = setContext((_, { headers }) => {
-  const token = process.env.REACT_APP_GITHUB_TOKEN;
-  return {
-    headers: {
-      ...headers,
-      authorization: token ? `Bearer ${token}` : "",
-    },
-  };
-});
-
-const client = new ApolloClient({
-  link: authLink.concat(httpLink),
-  cache: new InMemoryCache(),
-});
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

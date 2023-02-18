@@ -1,10 +1,10 @@
 import * as React from "react";
 import { Typography, Box, Button, Container } from "@mui/material";
 
-import IssuesSection from "../Issues/IssuesSection";
-import CommentsSection from "../Comment/CommentsSection";
+import Issues from "../../pages/Issues/Issues";
+import Comments from "../../pages/Comments/Comments";
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
-import { selectSelectedId, clearSelectedId } from "../Issues/issuesSlice";
+import { selectSelectedId, clearSelectedId } from "../../store/issuesSlice";
 
 export default function Content() {
   const dispatch = useAppDispatch();
@@ -27,7 +27,7 @@ export default function Content() {
             React Repository
           </Typography>
         </Box>
-        {selectedId ? <CommentsSection /> : <IssuesSection />}
+        {selectedId ? <Comments /> : <Issues />}
       </Container>
     </Box>
   );

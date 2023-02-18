@@ -3,8 +3,8 @@ import { render, screen } from "@testing-library/react";
 import { MockedProvider } from "@apollo/client/testing";
 import { Provider } from "react-redux";
 import { store } from "../../../app/store";
-import IssueTable from "../IssueTable";
-import { GET_ISSUES } from "../IssueTable";
+import IssueTable from "../IssuesTable";
+import { GET_ISSUES } from "../IssuesTable";
 
 const mocks = [
   {

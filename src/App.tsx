@@ -1,8 +1,8 @@
 import React from "react";
-import Content from "./components/layout/Content";
-import Header from "./components/layout/Header";
-import Footer from "./components/layout/Footer";
 import { Box } from "@mui/material";
+import Content from "./components/Layout/Content";
+import Header from "./components/Layout/Header";
+import Footer from "./components/Layout/Footer";
 
 function App() {
   return (
