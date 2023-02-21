@@ -17,15 +17,20 @@ export default function Content() {
   return (
     <Box component="main">
       <Container sx={{ py: 6 }}>
-        <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+        <Box>
+          <Typography variant="h2" sx={{ fontSize: 18, mb: 2 }}>
+            React Repository
+          </Typography>
           {selectedId && (
-            <Button onClick={handleClick} variant="contained" sx={{ mr: 2 }}>
+            <Button
+              onClick={handleClick}
+              variant="outlined"
+              sx={{ mb: 2 }}
+              size="small"
+            >
               Go Back to Issues
             </Button>
           )}
-          <Typography variant="h2" sx={{ fontSize: 18 }}>
-            React Repository
-          </Typography>
         </Box>
         {selectedId ? <Comments /> : <Issues />}
       </Container>

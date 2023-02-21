@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, Divider, Typography } from "@mui/material";
 import { gql, useQuery } from "@apollo/client";
 
 import Comment from "../../components/Comment/Comment";
@@ -67,15 +67,12 @@ export default function Comments() {
     <Box>
       {data ? (
         <>
-          <Typography>{data.repository.issue.title}</Typography>
-          <Typography>{data.repository.issue.id}</Typography>
+          <Typography sx={{ fontSize: 24, fontWeight: "bold", mb: 2 }}>
+            {data.repository.issue.title}
+          </Typography>
+          <Divider sx={{ mb: 2 }} />
           {data.repository.issue.comments.edges.map((elem) => (
-            <Comment
-              text={elem.node.bodyHTML}
-              key={elem.node.id}
-              authorImage={elem.node.author.avatarUrl}
-              createdAt={elem.node.createdAt}
-            />
+            <Comment {...elem.node} key={elem.node.id} />
           ))}
         </>
       ) : (

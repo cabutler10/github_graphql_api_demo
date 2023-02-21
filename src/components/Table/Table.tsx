@@ -74,7 +74,9 @@ export default function Table({ rows, numTotalRows }: Props) {
                         }}
                       >
                         <Typography>{row.title}</Typography>
-                        <Typography>{`Comments: ${row.comments?.totalCount}`}</Typography>
+                        <Typography
+                          sx={{ minWidth: 100 }}
+                        >{`Comments: ${row.comments?.totalCount}`}</Typography>
                       </Box>
                     </TableCell>
                   </TableRow>
