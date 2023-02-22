@@ -3,10 +3,12 @@
 The purpose of this project is to explore the use of following tools and concepts;
 
 - Apollo Client
-- Github Graphql API
+- Graphql Query Language
+- Pagination
 
 This project was developed using:
 
+- Github Graphql API
 - React
 - Typescript
 - Apollo

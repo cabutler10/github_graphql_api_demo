@@ -44,7 +44,7 @@ test("renders without error", () => {
   render(
     <Provider store={store}>
       <MockedProvider>
-        <IssueTable />
+        <IssueTable searchValue="" />
       </MockedProvider>
     </Provider>
   );
@@ -58,6 +58,6 @@ it("renders mocked data", async () => {
       </MockedProvider>
     </Provider>
   );
-  expect(await screen.getByTestId("loading"));
+  expect(screen.getByTestId("loading")).toBeInTheDocument();
   expect(await screen.findByText("myIssue")).toBeInTheDocument();
 });

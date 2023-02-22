@@ -29,11 +29,10 @@ interface CommentQueryProps {
   repository: IRepository;
 }
 
-const GET_COMMENTS = gql`
+export const GET_COMMENTS = gql`
   query GetComments($number: Int!) {
     repository(owner: "facebook", name: "react") {
       issue(number: $number) {
-        id
         title
         comments(first: 50) {
           edges {
